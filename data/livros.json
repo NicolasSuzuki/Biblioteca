@@ -1,0 +1,16 @@
+[
+    {
+        "isbn": "1111111111111",
+        "titulo": "Livro A",
+        "autor": "Autor A",
+        "categoria": "Fic\u00c3\u00a7\u00c3\u00a3o",
+        "disponivel": false
+    },
+    {
+        "isbn": "2222222222222",
+        "titulo": "Livro B",
+        "autor": "Autor B",
+        "categoria": "N\u00c3\u00a3o-fic\u00c3\u00a7\u00c3\u00a3o",
+        "disponivel": true
+    }
+]

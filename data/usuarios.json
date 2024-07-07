@@ -1,0 +1,16 @@
+[
+    {
+        "id": "1",
+        "nome": "Usu\u00c3\u00a1rio 1",
+        "tipo": "estudante",
+        "emprestimos": [
+            "1111111111111"
+        ]
+    },
+    {
+        "id": "2",
+        "nome": "Usu\u00c3\u00a1rio 2",
+        "tipo": "professor",
+        "emprestimos": []
+    }
+]
