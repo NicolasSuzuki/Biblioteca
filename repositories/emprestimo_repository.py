@@ -14,7 +14,6 @@ class EmprestimoRepository:
                 # Convertendo as datas de string ISO 8601 de volta para datetime
                 for emprestimo in emprestimos_json:
                     emprestimo['data_emprestimo'] = emprestimo['data_emprestimo']
-                    emprestimo['data_devolucao'] = emprestimo['data_devolucao'] if emprestimo['data_devolucao'] else None
                 return emprestimos_json
         except FileNotFoundError:
             return []
@@ -30,4 +29,8 @@ class EmprestimoRepository:
 
     def adicionar(self, emprestimo):
         self.emprestimos.append(emprestimo)
+        self.salvar_emprestimos()
+        
+    def remover(self, usuario_id, livro_isbn):
+        self.emprestimos = filter(lambda x: x['isbn'] != livro_isbn and x['usuario_id'] != usuario_id, self.emprestimos)
         self.salvar_emprestimos()

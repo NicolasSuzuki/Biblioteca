@@ -1,9 +1,9 @@
 class Usuario:
-    def __init__(self, user_id, nome, tipo):
+    def __init__(self, user_id, nome, tipo, emprestimos):
         self.id = user_id
         self.nome = nome
         self.tipo = tipo
-        self.emprestimos = []
+        self.emprestimos = emprestimos
 
     def emprestar_livro(self, livro_isbn):
         if livro_isbn not in self.emprestimos:

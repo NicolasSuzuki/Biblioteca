@@ -11,8 +11,8 @@ class LibraryFacade:
         self.emprestimo_service = EmprestimoService()
         self.notification_service = NotificationService()
 
-    def buscar_livro(self, titulo=None, autor=None, categoria=None):
-        livros_internos = self.livro_service.buscar_livros(titulo, autor, categoria)
+    def buscar_livro(self, titulo=None, autor=None, categoria=None, isbn=None):
+        livros_internos = self.livro_service.buscar_livros(titulo, autor, categoria, isbn)
         livros_externos = buscar_livros_externos(titulo, autor, categoria)
         return livros_internos + livros_externos
 

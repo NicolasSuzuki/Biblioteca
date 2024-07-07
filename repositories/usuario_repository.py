@@ -10,7 +10,7 @@ class UsuarioRepository:
         try:
             with open(self.data_file, 'r') as file:
                 usuarios_json = json.load(file)
-                usuarios = [Usuario(usuario['id'], usuario['nome'], usuario['tipo']) for usuario in usuarios_json]
+                usuarios = [Usuario(usuario['id'], usuario['nome'], usuario['tipo'], usuario['emprestimos']) for usuario in usuarios_json]
                 return usuarios
         except FileNotFoundError:
             return []
@@ -33,6 +33,12 @@ class UsuarioRepository:
         usuario = self.buscar_por_id(usuario_id)
         if livro_isbn not in usuario.emprestimos:
             usuario.emprestimos.append(livro_isbn)
+            self.salvar_usuarios()
+
+    def devolver_livro(self, usuario_id, livro_isbn):
+        usuario = self.buscar_por_id(usuario_id)
+        if livro_isbn in usuario.emprestimos:
+            filter(lambda x: x != livro_isbn, usuario.emprestimos)
             self.salvar_usuarios()
 
     def atualizar(self, usuario):

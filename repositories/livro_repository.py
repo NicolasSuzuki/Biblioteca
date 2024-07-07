@@ -29,7 +29,6 @@ class LivroRepository:
 
     def salvar_livros(self):
         livros_serializaveis = [livro for livro in self.livros]
-        
         with open(self.data_file, 'w') as file:
             json.dump(livros_serializaveis, file, indent=4)
 
@@ -37,3 +36,9 @@ class LivroRepository:
         livro = self.buscar_por_isbn(livro_isbn)
         livro['disponivel'] = False
         self.salvar_livros()
+
+    def devolver(self, livro_isbn):
+        livro = self.buscar_por_isbn(livro_isbn)
+        livro['disponivel'] = True
+        self.salvar_livros()
+
