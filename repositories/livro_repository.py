@@ -1,44 +1,59 @@
 import json
 
 class LivroRepository:
-    def __init__(self, data_file='data/livros.json'):
-        self.data_file = data_file
-        self.livros = self._carregar_livros()
+    def __init__(self, file_path='data/livros.json'):
+        self.file_path = file_path
 
-    def _carregar_livros(self):
-        with open(self.data_file, 'r') as file:
+    def _load_data(self):
+        with open(self.file_path, 'r') as file:
             return json.load(file)
 
+    def _save_data(self, data):
+        with open(self.file_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
     def buscar(self, titulo=None, autor=None, categoria=None, isbn=None):
-        resultados = [livro for livro in self.livros if
-                      (not titulo or titulo.lower() in livro['titulo'].lower()) and
-                      (not autor or autor.lower() in livro['autor'].lower()) and
-                      (not categoria or categoria.lower() in livro['categoria'].lower()) and
-                      (not isbn or isbn == livro['isbn'])]
-        return resultados
+        livros = self._load_data()
+        if titulo:
+            livros = [livro for livro in livros if titulo.lower() in livro['titulo'].lower()]
+        if autor:
+            livros = [livro for livro in livros if autor.lower() in livro['autor'].lower()]
+        if categoria:
+            livros = [livro for livro in livros if categoria.lower() in livro['categoria'].lower()]
+        if isbn:
+            livros = [livro for livro in livros if livro['isbn'] == isbn]
+        return livros
 
-    def buscar_por_isbn(self, isbn):
-        for livro in self.livros:
+    def emprestar(self, isbn):
+        livros = self._load_data()
+        for livro in livros:
             if livro['isbn'] == isbn:
-                return livro
-        return None
+                livro['disponivel'] = False
+                break
+        self._save_data(livros)
 
-    def atualizar(self):
-        with open(self.data_file, 'w') as file:
-            json.dump(self.livros, file, indent=4)
+    def devolver(self, isbn):
+        livros = self._load_data()
+        for livro in livros:
+            if livro['isbn'] == isbn:
+                livro['disponivel'] = True
+                break
+        self._save_data(livros)
 
-    def salvar_livros(self):
-        livros_serializaveis = [livro for livro in self.livros]
-        with open(self.data_file, 'w') as file:
-            json.dump(livros_serializaveis, file, indent=4)
+    def adicionar_livro(self, novo_livro):
+        livros = self._load_data()
+        livros.append(novo_livro)
+        self._save_data(livros)
 
-    def emprestar(self, livro_isbn):
-        livro = self.buscar_por_isbn(livro_isbn)
-        livro['disponivel'] = False
-        self.salvar_livros()
+    def remover_livro(self, isbn):
+        livros = self._load_data()
+        livros = [livro for livro in livros if livro['isbn'] != isbn]
+        self._save_data(livros)
 
-    def devolver(self, livro_isbn):
-        livro = self.buscar_por_isbn(livro_isbn)
-        livro['disponivel'] = True
-        self.salvar_livros()
-
+    def atualizar_livro(self, livro_atualizado):
+        livros = self._load_data()
+        for i, livro in enumerate(livros):
+            if livro['isbn'] == livro_atualizado['isbn']:
+                livros[i] = livro_atualizado
+                break
+        self._save_data(livros)
