@@ -1,36 +1,28 @@
 import json
 from datetime import datetime
-from models.emprestimo import Emprestimo
 
 class EmprestimoRepository:
-    def __init__(self, data_file='data/emprestimos.json'):
-        self.data_file = data_file
-        self.emprestimos = self.carregar_emprestimos()
+    def __init__(self, file_path='data/emprestimos.json'):
+        self.file_path = file_path
 
-    def carregar_emprestimos(self):
-        try:
-            with open(self.data_file, 'r') as file:
-                emprestimos_json = json.load(file)
-                # Convertendo as datas de string ISO 8601 de volta para datetime
-                for emprestimo in emprestimos_json:
-                    emprestimo['data_emprestimo'] = emprestimo['data_emprestimo']
-                return emprestimos_json
-        except FileNotFoundError:
-            return []
-        except json.JSONDecodeError:
-            print(f"Erro ao decodificar o arquivo JSON: {self.data_file}")
-            return []
+    def _load_data(self):
+        with open(self.file_path, 'r') as file:
+            return json.load(file)
 
-    def salvar_emprestimos(self):
-        emprestimos_serializaveis = [emprestimo for emprestimo in self.emprestimos]
-        
-        with open(self.data_file, 'w') as file:
-            json.dump(emprestimos_serializaveis, file, indent=4)
+    def _save_data(self, data):
+        with open(self.file_path, 'w') as file:
+            json.dump(data, file, indent=4)
 
     def adicionar(self, emprestimo):
-        self.emprestimos.append(emprestimo)
-        self.salvar_emprestimos()
-        
+        emprestimos = self._load_data()
+        emprestimos.append(emprestimo)
+        self._save_data(emprestimos)
+
     def remover(self, usuario_id, livro_isbn):
-        self.emprestimos = filter(lambda x: x['isbn'] != livro_isbn and x['usuario_id'] != usuario_id, self.emprestimos)
-        self.salvar_emprestimos()
+        emprestimos = self._load_data()
+        emprestimos = [emprestimo for emprestimo in emprestimos if not (emprestimo['usuario_id'] == usuario_id and emprestimo['livro_isbn'] == livro_isbn)]
+        self._save_data(emprestimos)
+
+    def buscar_por_usuario(self, usuario_id):
+        emprestimos = self._load_data()
+        return [emprestimo for emprestimo in emprestimos if emprestimo['usuario_id'] == usuario_id]

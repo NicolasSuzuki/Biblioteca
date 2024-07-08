@@ -55,16 +55,16 @@ class CLI:
         self.library_mediator.executar_operacao("devolver_livro", usuario_id, livro_isbn)
 
     def consultar_usuario(self):
-        usuario_id = input("ID do usuário: ").strip()
-        usuario = self.library_mediator.executar_operacao("consultar_usuario", usuario_id)
-        print("\nLivros do " + usuario.nome + ":")
-        if usuario:
-            for emprestimo in usuario.emprestimos_ativos():
-                livro = self.library_mediator.executar_operacao("buscar_livro", "", "", "", emprestimo)
-                if livro:
-                    print(" - Titulo: " + livro[0]['titulo'])
-        else:
-            print("Usuário não encontrado.")
+       usuario_id = input("ID do usuário: ").strip()
+       usuario = self.library_mediator.executar_operacao("consultar_usuario", usuario_id)
+       print("\nLivros do " + usuario['nome'] + ":")
+       if usuario and 'emprestimos' in usuario:
+           for emprestimo in usuario['emprestimos']:
+               livro = self.library_mediator.executar_operacao("buscar_livro", "", "", "", emprestimo)
+               if livro:
+                   print(" - Título: " + livro[0]['titulo'])
+       else:
+           print("Usuário não encontrado.")
 
     def exibir_ajuda(self):
         print("\n--- Ajuda ---")
