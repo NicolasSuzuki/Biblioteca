@@ -1,12 +1,14 @@
+from repositories.usuario_repository import UsuarioRepository
+
 class NotificationService:
-    def notificar(self, mensagem, usuarios):
+    def __init__(self):
+        self.usuario_repository = UsuarioRepository()
+        
+    def notificar_disponibilidade(self, livro_titulo):
+        usuarios = self.usuario_repository.buscar_usuarios()
+        mensagem = f"O livro {livro_titulo} está disponível para empréstimo!"
         for usuario in usuarios:
-            print(f"Notificando {usuario.nome}: {mensagem}")
-
-class BookAvailabilityNotifier:
-    def __init__(self, notification_service):
-        self.notification_service = notification_service
-
-    def notificar_disponibilidade(self, livro, usuarios):
-        mensagem = f"O livro '{livro['titulo']}' está disponível."
-        self.notification_service.notificar(mensagem, usuarios)
+            self.enviar_notificacao(usuario, mensagem)
+    
+    def enviar_notificacao(self, usuario, mensagem):
+        print(f"Enviando notificação para {usuario}: {mensagem}")

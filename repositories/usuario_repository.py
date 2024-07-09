@@ -28,6 +28,9 @@ class UsuarioRepository:
                 usuario['emprestimos'].append(livro_isbn)
                 break
         self._save_data(usuarios)
+    
+    def buscar_usuarios(self):
+        return self._load_data()
 
     def devolver_livro(self, usuario_id, livro_isbn):
         usuarios = self._load_data()
