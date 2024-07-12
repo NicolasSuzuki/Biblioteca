@@ -4,9 +4,11 @@ class BookAvailabilityHandler:
 
     def handle(self, livro, usuario=None):
         if not livro['disponivel']:
-            print(f"O livro {livro['titulo']} não está disponível")
+            print(f"\nO livro {livro['titulo']} não está disponível")
+            return False
         elif self.next_handler:
             self.next_handler.handle(livro, usuario)
+        return True
 
 
 class UserEligibilityHandler:
@@ -17,9 +19,11 @@ class UserEligibilityHandler:
         if 'emprestimos' not in usuario:
             usuario['emprestimos'] = []
         if len(usuario['emprestimos']) >= 3:
-            raise ValueError("Usuário já possui 3 livros emprestados")
-        if self.next_handler:
+            print("Usuário já possui 3 livros emprestados")
+            return False
+        elif self.next_handler:
             self.next_handler.handle(livro, usuario)
+        return True
 
 
 class LoanLimitHandler:
@@ -29,4 +33,5 @@ class LoanLimitHandler:
     def handle(self, livro, usuario):
         # Implementar lógica adicional se necessário
         if self.next_handler:
-            self.next_handler.handle(livro, usuario)
+            return self.next_handler.handle(livro, usuario)
+        return True
