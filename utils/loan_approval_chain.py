@@ -4,8 +4,8 @@ class BookAvailabilityHandler:
 
     def handle(self, livro, usuario=None):
         if not livro['disponivel']:
-            raise ValueError("Livro não está disponível")
-        if self.next_handler:
+            print(f"O livro {livro['titulo']} não está disponível")
+        elif self.next_handler:
             self.next_handler.handle(livro, usuario)
 
 
