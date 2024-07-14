@@ -26,3 +26,7 @@ class EmprestimoRepository:
     def buscar_por_usuario(self, usuario_id):
         emprestimos = self._load_data()
         return [emprestimo for emprestimo in emprestimos if emprestimo['usuario_id'] == usuario_id]
+
+    def existe(self, usuario_id, livro_isbn):
+        emprestimos = self._load_data()
+        return any(emprestimo['usuario_id'] == usuario_id and emprestimo['livro_isbn'] == livro_isbn for emprestimo in emprestimos)

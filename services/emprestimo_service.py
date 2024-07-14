@@ -43,9 +43,13 @@ class EmprestimoService:
         return True
 
     def devolver_livro(self, usuario_id, livro_isbn):
-        self.usuario_repo.devolver_livro(usuario_id, livro_isbn)
-        self.livro_repo.devolver(livro_isbn)
-        self.emprestimo_repo.remover(usuario_id, livro_isbn)
-        
-        livro = self.livro_repo.buscar(isbn=livro_isbn)[0]
-        self.notification_service.notificar_disponibilidade(livro['titulo'])
+        if not self.emprestimo_repo.existe(usuario_id, livro_isbn):
+            print('\nUsuário não possui este livro emprestado')
+            return
+        else:
+            self.usuario_repo.devolver_livro(usuario_id, livro_isbn)
+            self.livro_repo.devolver(livro_isbn)
+            self.emprestimo_repo.remover(usuario_id, livro_isbn)
+
+            livro = self.livro_repo.buscar(isbn=livro_isbn)[0]
+            self.notification_service.notificar_disponibilidade(livro['titulo'])
