@@ -19,6 +19,10 @@ clean:
 	@echo "Limpando os dados..."
 	rm -f data/usuarios.json data/livros.json data/emprestimos.json
 
+test:
+	@echo "Executando os testes..."
+	python3 -m unittest discover -s tests
+
 # Alvo de ajuda
 help:
 	@echo "Makefile para executar operações"
