@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class Usuario:
     def __init__(self, user_id, nome, tipo, emprestimos):
         self.id = user_id
@@ -14,15 +16,23 @@ class Usuario:
             self.emprestimos.remove(livro_isbn)
 
     def emprestimos_ativos(self):
-        return self.emprestimos
+        emprestimos_ativos = []
+        for item in self.emprestimos:
+            if item['data_devolucao'] == None:
+                emprestimos_ativos.append(item)
+        return emprestimos_ativos
 
     def __str__(self):
         return f"{self.tipo}: {self.nome} (ID: {self.id})"
 
 class StudentUserType(Usuario):
     def __init__(self, user_id, nome):
-        super().__init__(user_id, nome, "Estudante")
+        super().__init__(user_id, nome, "Estudante", [])
 
 class TeacherUserType(Usuario):
     def __init__(self, user_id, nome):
-        super().__init__(user_id, nome, "Professor")
+        super().__init__(user_id, nome, "Professor", [])
+        
+class StaffUserType(Usuario):
+    def __init__(self, user_id, nome):
+        super().__init__(user_id, nome, "Funcionário", [])

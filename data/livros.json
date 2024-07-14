@@ -1,23 +1,72 @@
 [
     {
-        "isbn": "1234567890",
-        "titulo": "Python Programming",
-        "autor": "John Doe",
+        "isbn": "0262033844",
+        "titulo": "Introduction to Algorithms",
+        "autor": "Cormen et al.",
+        "categoria": "Algoritmos",
+        "disponivel": false
+    },
+    {
+        "isbn": "0132350882",
+        "titulo": "Clean Code",
+        "autor": "Robert C. Martin",
+        "categoria": "Desenvolvimento",
+        "disponivel": true
+    },
+    {
+        "isbn": "0201633612",
+        "titulo": "Design Patterns",
+        "autor": "Gamma et al.",
+        "categoria": "Desenvolvimento",
+        "disponivel": true
+    },
+    {
+        "isbn": "0135957052",
+        "titulo": "The Pragmatic Programmer",
+        "autor": "Hunt e Thomas",
+        "categoria": "Desenvolvimento",
+        "disponivel": true
+    },
+    {
+        "isbn": "0134610997",
+        "titulo": "Artificial Intelligence",
+        "autor": "Russell e Norvig",
+        "categoria": "IA",
+        "disponivel": true
+    },
+    {
+        "isbn": "113318779X",
+        "titulo": "Theory of Computation",
+        "autor": "Michael Sipser",
+        "categoria": "Teoria da Computa\u00e7\u00e3o",
+        "disponivel": true
+    },
+    {
+        "isbn": "0132126958",
+        "titulo": "Computer Networks",
+        "autor": "Tanenbaum e Wetherall",
+        "categoria": "Redes",
+        "disponivel": true
+    },
+    {
+        "isbn": "1118063333",
+        "titulo": "Operating System Concepts",
+        "autor": "Silberschatz et al.",
+        "categoria": "Sistemas Operacionais",
+        "disponivel": true
+    },
+    {
+        "isbn": "0131103628",
+        "titulo": "The C Programming Language",
+        "autor": "Kernighan e Ritchie",
         "categoria": "Programa\u00e7\u00e3o",
         "disponivel": true
     },
     {
-        "isbn": "0987654321",
-        "titulo": "Machine Learning",
-        "autor": "Jane Smith",
-        "categoria": "Intelig\u00eancia Artificial",
-        "disponivel": true
-    },
-    {
-        "isbn": "1122334455",
-        "titulo": "Data Science",
-        "autor": "Alice Johnson",
-        "categoria": "Ci\u00eancia de Dados",
+        "isbn": "0735611319",
+        "titulo": "Code",
+        "autor": "Charles Petzold",
+        "categoria": "Hardware e Software",
         "disponivel": true
     }
 ]

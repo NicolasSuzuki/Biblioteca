@@ -2,19 +2,39 @@
     {
         "id": "1",
         "nome": "Alice",
-        "tipo": "estudante",
-        "emprestimos": []
+        "tipo": "Estudante",
+        "emprestimos": [
+            "0262033844"
+        ]
     },
     {
         "id": "2",
         "nome": "Bob",
-        "tipo": "professor",
+        "tipo": "Professor",
         "emprestimos": []
     },
     {
         "id": "3",
-        "nome": "Carlos",
-        "tipo": "funcionario",
+        "nome": "Charlie",
+        "tipo": "Funcionario",
+        "emprestimos": []
+    },
+    {
+        "id": "4",
+        "nome": "David",
+        "tipo": "Estudante",
+        "emprestimos": []
+    },
+    {
+        "id": "5",
+        "nome": "Eve",
+        "tipo": "Professor",
+        "emprestimos": []
+    },
+    {
+        "id": "6",
+        "nome": "Frank",
+        "tipo": "Funcionario",
         "emprestimos": []
     }
 ]

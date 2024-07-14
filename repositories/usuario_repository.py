@@ -15,7 +15,7 @@ class UsuarioRepository:
     def buscar_por_id(self, usuario_id):
         usuarios = self._load_data()
         for usuario in usuarios:
-            if usuario['id'] == usuario_id:
+            if usuario['id'] == str(usuario_id):
                 if 'emprestimos' not in usuario:
                     usuario['emprestimos'] = []
                 return usuario

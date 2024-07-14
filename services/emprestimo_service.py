@@ -15,7 +15,7 @@ class EmprestimoService:
         self.notification_service = NotificationService()
 
     def emprestar_livro(self, usuario_id, livro_isbn):
-        usuario = self.usuario_service.consultar_usuario(usuario_id)     
+        usuario = self.usuario_service.consultar_usuario(usuario_id)
         livro = self.livro_repo.buscar(isbn=livro_isbn)[0]
 
         # Configurar a cadeia de handlers
@@ -27,7 +27,7 @@ class EmprestimoService:
 
         # Processar a cadeia de handlers
         if not handler_chain.handle(livro, usuario):
-            return
+            return False
 
         emprestimo = {
             'usuario_id': usuario['id'],
@@ -39,6 +39,8 @@ class EmprestimoService:
         self.usuario_repo.emprestar_livro(usuario['id'], livro_isbn)
         self.livro_repo.emprestar(livro_isbn)
         self.emprestimo_repo.adicionar(emprestimo)
+
+        return True
 
     def devolver_livro(self, usuario_id, livro_isbn):
         self.usuario_repo.devolver_livro(usuario_id, livro_isbn)
